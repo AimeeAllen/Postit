@@ -1,8 +1,33 @@
 <p>
   <%= render @post.categories %>
 </p>
-
+<div class='pull-right'><%= link_to 'Edit this post', edit_post_path(@post) %></div>
 <%= render partial: 'shared/header', object: @post.title %>
-
+<p><%= welformatted_url(@post.url) %></p>
+<hr/>
 <p><%= @post.description %></p>
 <hr/>
+
+<%= render 'shared/header', header: 'Comments for this Post:' %>
+
+<% @post.comments.each do |comment| %>
+  <p>"<%= comment.body %>"</p>
+  <p><span class='quiet'>Comment made by: <%= comment.creator.username %> <small><%= formatted_datetime(comment.created_at) %></small></span></p>
+  <hr/>
+<% end %>
+
+<%= render 'shared/header', header: 'Add a new comment:' %>
+
+<%= render 'shared/errors', errors: @comment.errors %>
+
+<%= form_for [@post,@comment] do |f| %>
+  <div>
+    <%= f.label :body, 'Enter your comment:' %>
+    <%= f.text_area :body, rows: '5', class: 'span6' %>
+  </div>
+  <div class='checkbox'>
+    <%= check_box_tag :agree %>
+    <%= label_tag :agree, "I agree to the terms and conditions for commenting" %>
+  </div>
+  <%= f.submit "Create Comment", class: "btn btn-primary" %>
+<% end %>

@@ -1,0 +1,9 @@
+<%= render 'shared/header', header: "Create a new Category" %>
+<%= render 'shared/errors', errors: @category.errors %>
+
+<%= form_for @category do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <br/>
+  <%= f.submit "Create New Category", class: 'btn btn-primary' %>
+<% end %>

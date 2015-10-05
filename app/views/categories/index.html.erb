@@ -1,0 +1,7 @@
+<%= render 'shared/header', header: 'List of all Categories' %>
+<ul>
+  <% sort_categories_by_name!(@categories).each do |category| %>
+    <li><%= category.name %></li>
+  <% end %>
+</ul>
+<%= link_to 'Create a new Category', new_category_path %>

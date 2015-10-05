@@ -2,20 +2,5 @@
 
 <%= render 'shared/header', header: 'All Posts' %>
 
-<% @posts.each do |post| %>
-  <div class='row'>
-    <div class='span8 well'>
+<%= render @posts %>
 
-      <%= render post.categories %>
-
-      <h4><%= link_to(post.title, "http://#{post.url}") %></h4>
-      <p><%= post.description %></p>
-      <p>
-        <span class='quiet'>Post created by: <%= post.user.username %> <small>at <%= post.created_at %></small></span>
-        <span>
-          <%= link_to(pluralize(post.comments.size, 'comment'),post_path(post)) %>
-        </span>
-      </p>
-    </div>
-  </div>
-<% end %>
