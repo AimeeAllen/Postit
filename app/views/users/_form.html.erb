@@ -1,0 +1,17 @@
+<%= form_for @user do |f| %>
+  <div>
+    <%= f.label :username %>
+    <%= f.text_field :username %>
+  </div>
+  <div>
+    <%= f.label :password %>
+    <%= f.password_field :password%>
+  </div>
+  <div> 
+    <%= f.label :password_confirmation, 'Please confirm your password' %>
+    <%= f.password_field :password_confirmation %>
+  </div>
+  <div>
+    <%= f.submit (@user.new_record? ? "Register" : "Update Your Profile"), class: "btn btn-primary" %>
+  </div>
+<% end %>

@@ -1,4 +1,6 @@
 class CategoriesController < ApplicationController
+before_action :write_access, only: [:new, :create]
+
   def index
     @categories = Category.all
   end

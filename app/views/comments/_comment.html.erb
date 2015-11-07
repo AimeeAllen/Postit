@@ -1,0 +1,10 @@
+<% if comment.id %>
+  <p>
+    "<%= comment.body %>"
+    <% if parent.class == User %>
+      on <%= link_to comment.post.title, post_path(comment.post) %>
+    <% end %>
+  </p>
+  <p><span class='quiet'>Comment made by: <%= comment.creator.username %> <small><%= formatted_datetime(comment.created_at) %></small></span></p>
+  <hr/>
+<% end %>

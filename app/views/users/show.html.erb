@@ -1,0 +1,27 @@
+<%= render 'shared/header', header: "Profile for user: #{@user.username}" %>
+
+<h4><%= "#{@user.username}'s Activity" %></h4>
+
+<div class='well'>
+  <dl class='dl-horizontal' >
+    <dt>Username:</dt>
+    <dd><%= @user.username %></dd>
+  </dl>
+</div>
+
+<ul class='nav nav-tabs'>
+  <li class='<%= 'active' if params[:tab].nil? %>'>
+    <%= link_to "Posts(#{@user.posts.size})", "/users/#{@user.username}" %><! #user_path(@user) >
+  </li>
+  <li class='<%= 'active' if params[:tab]=='comments' %>'>
+    <%= link_to "Comments(#{@user.comments.size})", "/users/#{@user.username}?tab=comments"  %><! #user_path(@user, tab: 'comments') >
+  </li>
+</ul>
+
+<% if params[:tab].nil? %>
+  <h3>Posts</h3>
+  <%= render @user.posts %>
+<% elsif params[:tab]=='comments' %>
+  <h3>Comments</h3>
+  <%= render @user.comments, parent: @user %>
+<% end %>

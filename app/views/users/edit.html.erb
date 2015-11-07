@@ -1,0 +1,4 @@
+<%= render 'shared/header', header: 'Edit your user Profile:' %>
+<%= render 'shared/errors', errors: @user.errors %>
+<h3>Note: You only need to enter a password if you want to change your password.</h3>
+<%= render 'form', object: @user %>

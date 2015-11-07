@@ -1,5 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update]
+  before_action :write_access, except: [:index, :show]
+  before_action :correct_user, only: [:edit, :update]
 
   def index
     @posts = Post.all
@@ -15,7 +17,7 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
-    @post.creator = User.find(rand(1..3)) #TODO fix to pickup correct user
+    @post.creator = current_user
 
     if @post.save
       flash[:notice] = "Your post has been created"
@@ -45,4 +47,12 @@ class PostsController < ApplicationController
   def set_post
     @post = Post.find(params[:id])
   end
+
+  def correct_user
+    unless creator_logged_in?
+      flash[:error] = "You can not update someone else's post"
+      redirect_to post_path(@post)
+    end
+  end
+
 end

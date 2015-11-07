@@ -1,10 +1,10 @@
 class CommentsController < ApplicationController
+  before_action :write_access
+
   def create
     @post = Post.find(params[:post_id])
     @comment = @post.comments.build(comment_params)
-    #BUG because in-memory @comment is associated with in-memory @post
-    # =>  when re-rendering the view, the part created comment is displayed
-    @comment.creator = User.find(rand(1..3)) #TODO fix to pickup correct user
+    @comment.creator = current_user
 
     if !params[:agree]
       flash[:notice] = 'You must accept the terms for commenting'

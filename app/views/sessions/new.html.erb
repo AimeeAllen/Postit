@@ -1,0 +1,15 @@
+<%= render 'shared/header', header: 'Please enter your Username and Password to Login' %>
+
+<%= form_tag '/login' do %>
+  <div>
+    <%= label_tag :username %>
+    <%= text_field_tag :username, params[:username]||'' %>
+  </div>
+  <div>
+    <%= label_tag :password %>
+    <%= password_field_tag :password %>
+  </div>
+  <div>
+    <%= submit_tag 'Login', class: 'btn btn-primary' %>
+  </div>
+<% end %>
