@@ -29,20 +29,19 @@
   <div class="btn-group nav-item">
       <%= link_to 'New Post', new_post_path, class: 'btn btn-success btn-small' %>
   </div>
-  <!% #get better url paths edit_user_path(current_user) %>
   <div class="btn-group nav-item">
     <%= link_to '#', class: 'btn btn-small dropdown-toggle', 'data-toggle' => 'dropdown' do %>
       <%= current_user.username %><span class='caret'></span>
     <% end %>
     <ul class='dropdown-menu'>
       <li>
-        <%= link_to "/users/#{current_user[:username]}" do %>
+        <%= link_to user_path(current_user) do %>
           <i class='icon-user'></i>
           Show User Profile
         <% end %>
       </li>
       <li>
-        <%= link_to "/users/#{current_user[:username]}/edit" do %>
+        <%= link_to edit_user_path(current_user) do %>
           <i class='icon-pencil'></i>
           Edit User Profile
         <% end %>

@@ -27,9 +27,7 @@ class UsersController < ApplicationController
   def update
     if @user.update(user_params)
       flash[:notice] = 'User update worked'
-      # this is broken - won't redirect correctly
-      render 'show'
-      #redirect_to user_path(@user)
+      redirect_to user_path(@user)
     else
       render 'edit'
     end
@@ -40,15 +38,14 @@ class UsersController < ApplicationController
     params.require(:user).permit(:username,:password,:password_confirmation)
   end
 
-  def get_user #fix this
-    @user = User.where("lower(username)=lower(?)", params[:username]).first
-    @user ||= User.find(params[:id])
+  def get_user
+    @user = User.find_by(username: params[:id])
   end
 
   def require_same_user
     if @user != current_user
       flash[:error] = 'You can not edit the profile of another user'
-      redirect_to user_path(@user.username) #need id  once fix other named routes
+      redirect_to user_path(@user)
     end
   end
 
