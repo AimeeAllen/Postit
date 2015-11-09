@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update]
+  before_action :set_post, only: [:show, :edit, :update, :vote]
   before_action :write_access, except: [:index, :show]
   before_action :correct_user, only: [:edit, :update]
 
@@ -37,6 +37,16 @@ class PostsController < ApplicationController
     else
       render 'edit'
     end
+  end
+
+  def vote
+    vote= Vote.create(vote: params[:vote], creator: current_user, voteable: @post)
+    if vote.valid?
+      flash[:notice] = 'Your vote has been counted'
+    else
+      flash[:error] = 'You can not vote more than once for a Post'
+    end
+    redirect_to :back
   end
 
   private

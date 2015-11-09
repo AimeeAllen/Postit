@@ -17,6 +17,17 @@ class CommentsController < ApplicationController
     end
   end
 
+  def vote
+    comment = Comment.find(params[:format])
+    vote=Vote.create(vote: params[:vote], creator: current_user, voteable: comment)
+    if vote.valid?
+      flash[:notice] = 'Your vote has been counted'
+    else
+      flash[:error] = "You can not vote more than once for a Comment"
+    end
+    redirect_to :back
+  end
+
   private
 
   def comment_params

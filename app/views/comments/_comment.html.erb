@@ -1,10 +1,14 @@
 <% if comment.id %>
-  <p>
-    "<%= comment.body %>"
-    <% if parent.class == User %>
-      on <%= link_to comment.post.title, post_path(comment.post) %>
-    <% end %>
-  </p>
-  <p><span class='quiet'>Comment made by: <%= comment.creator.username %> <small><%= formatted_datetime(comment.created_at) %></small></span></p>
-  <hr/>
+  <div class='row'>
+    <%= render 'shared/votes', voteable_object: comment %>
+    <div class='span8 well'>
+      <p>
+        "<%= comment.body %>"
+        <% if parent.class == User %>
+          on <%= link_to comment.post.title, post_path(comment.post) %>
+        <% end %>
+      </p>
+      <p><span class='quiet'>Comment made by: <%= link_to comment.creator.username, user_path(comment.creator) %> <small><%= formatted_datetime(comment.created_at) %></small></span></p>
+    </div>
+  </div>
 <% end %>

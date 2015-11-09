@@ -1,4 +1,5 @@
 <div class='row'>
+  <%= render 'shared/votes', voteable_object: post %>
   <div class='span8 well'>
 
     <%= render post.categories %>
@@ -6,7 +7,7 @@
     <h4><%= link_to(post.title, welformatted_url(post.url)) %></h4>
     <p><%= post.description %></p>
     <p>
-      <span class='quiet'>Post created by: <%= post.creator.username %> <small><%= formatted_datetime(post.created_at) %></small></span>
+      <span class='quiet'>Post created by: <%= link_to post.creator.username, user_path(post.creator) %> <small><%= formatted_datetime(post.created_at) %></small></span>
       <span>
         <%= link_to(pluralize(post.comments.size, 'comment'),post_path(post)) %>
       </span>
