@@ -7,8 +7,6 @@ PostitTemplate::Application.routes.draw do
   post '/login', to: 'sessions#create'
   get '/logout', to: 'sessions#destroy'
 
-  match 'vote_comment', to: 'comments#vote', via: :post
-
   resources :posts, except: :destroy do
     member do
       post :vote

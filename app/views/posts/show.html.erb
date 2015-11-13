@@ -12,7 +12,7 @@
 
 <%= render 'shared/header', header: 'Comments for this Post:' %>
 
-<%= render @post.comments, parent: @post %>
+<%= render @post.reload.comments, parent: @post %>
 
 <% if logged_in? %>
   <%= render 'shared/header', header: 'Add a new comment:' %>

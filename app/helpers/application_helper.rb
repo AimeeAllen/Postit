@@ -10,4 +10,21 @@ module ApplicationHelper
   def formatted_datetime(datetime)
     datetime.strftime("on %e %B %Y at %l:%M%p")
   end
+
+  def votes_id_tag(voteable_object)
+    "#{voteable_object.class.to_s.downcase}_#{voteable_object.id}_votes"
+  end
+
+  def display_vote_number(voteable_object)
+    pluralize(voteable_object.number_of_votes, 'vote')
+  end
+
+  def vote_path(voteable_object)
+    case voteable_object.class.to_s
+    when 'Comment'
+      [:vote, voteable_object.post, voteable_object]
+    when 'Post'
+      [:vote, voteable_object]
+    end
+  end
 end

@@ -1,8 +1,11 @@
 class CommentsController < ApplicationController
   before_action :write_access
 
+  VOTE_SUCCESS_MSG = 'Your vote has been counted'
+  VOTE_FAIL_MSG = 'You can not vote more than once for a Comment'
+
   def create
-    @post = Post.find(params[:post_id])
+    @post = Post.find_by(slug: params[:post_id])
     @comment = @post.comments.build(comment_params)
     @comment.creator = current_user
 
@@ -18,14 +21,18 @@ class CommentsController < ApplicationController
   end
 
   def vote
-    comment = Comment.find(params[:format])
-    vote=Vote.create(vote: params[:vote], creator: current_user, voteable: comment)
-    if vote.valid?
-      flash[:notice] = 'Your vote has been counted'
-    else
-      flash[:error] = "You can not vote more than once for a Comment"
+    comment = Comment.find(params[:id])
+    @vote=Vote.create(vote: params[:vote], creator: current_user, voteable: comment)
+    respond_to do |format|
+      format.html do
+        @vote.valid? ? flash[:notice] = VOTE_SUCCESS_MSG : flash[:error] = VOTE_FAIL_MSG
+        redirect_to :back
+      end
+      format.js do
+        @msg = @vote.valid? ? VOTE_SUCCESS_MSG : VOTE_FAIL_MSG
+        render 'shared/vote'
+      end
     end
-    redirect_to :back
   end
 
   private
