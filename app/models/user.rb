@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
 
   include Sluggable
-  before_save 'self.generate_slug(:username)'
+  sluggable_column :username
 
   has_many :posts
   has_many :comments
