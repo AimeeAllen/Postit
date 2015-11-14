@@ -6,7 +6,7 @@ before_action :write_access, only: [:new, :create]
   end
 
   def show
-    @category = Category.find_by(name: params[:id])
+    @category = Category.find_by(slug: params[:id])
   end
 
   def new

@@ -1,4 +1,10 @@
 module Voteable
+  extend ActiveSupport::Concern
+
+  included do
+    has_many :votes, as: :voteable
+  end
+
   def number_of_up_votes
     self.votes.where(vote: true).size
   end

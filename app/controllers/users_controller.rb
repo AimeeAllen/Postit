@@ -39,7 +39,7 @@ class UsersController < ApplicationController
   end
 
   def get_user
-    @user = User.find_by(username: params[:id])
+    @user = User.find_by(slug: params[:id])
   end
 
   def require_same_user
