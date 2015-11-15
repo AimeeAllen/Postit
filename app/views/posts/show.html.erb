@@ -1,7 +1,7 @@
 <p>
   <%= render @post.categories %>
 </p>
-<% if creator_logged_in? %>
+<% if creator_logged_in? || authorised_access?('admin') %>
   <div class='pull-right'><%= link_to 'Edit this post', edit_post_path(@post) %></div>
 <% end %>
 <%= render partial: 'shared/header', object: @post.title %>

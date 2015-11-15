@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
   end
 
   def creator_logged_in?
-    current_user == @post.creator
+    logged_in? and current_user == @post.creator
   end
 
   def allow_access(*access_roles)

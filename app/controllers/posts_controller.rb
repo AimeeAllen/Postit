@@ -66,7 +66,7 @@ class PostsController < ApplicationController
   end
 
   def correct_user
-    unless creator_logged_in?
+    unless creator_logged_in? || authorised_access?('admin')
       flash[:error] = "You can not update someone else's post"
       redirect_to post_path(@post)
     end
