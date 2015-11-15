@@ -1,5 +1,7 @@
 class CategoriesController < ApplicationController
-before_action :write_access, only: [:new, :create]
+  before_action only: [:new, :create] do 
+    allow_access('admin')
+  end
 
   def index
     @categories = Category.all
