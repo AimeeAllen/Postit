@@ -15,6 +15,7 @@ gem 'jbuilder', '~> 1.2'
 
 gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'voteable_aimee'
+gem 'sluggable_aimee'
 
 group :doc do
   gem 'sdoc', require: false
