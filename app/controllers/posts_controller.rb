@@ -12,6 +12,10 @@ class PostsController < ApplicationController
 
   def show
     @comment = Comment.new
+    respond_to do |format|
+      format.html
+      format.json {render json: {post: @post}}
+    end
   end
 
   def new
@@ -21,12 +25,17 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.creator = current_user
-
     if @post.save
-      flash[:notice] = "Your post has been created"
-      redirect_to post_path(@post)
+      respond_to do |format|
+        format.html do
+          flash[:notice] = "Your post has been created"
+          redirect_to post_path(@post)
+        end
+      end
     else
-      render 'new'
+      respond_to do |format|
+        format.html { render 'new' }
+      end
     end
   end
 
