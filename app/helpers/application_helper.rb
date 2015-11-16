@@ -8,7 +8,11 @@ module ApplicationHelper
   end
 
   def formatted_datetime(datetime)
-    datetime.strftime("on %e %B %Y at %l:%M%p")
+    datetime.in_time_zone(timezone_to_use).strftime("on %e %B %Y at %l:%M%p %Z")
+  end
+
+  def timezone_to_use
+    (logged_in? && !current_user.timezone.blank?) ? current_user.timezone : Time.zone.name
   end
 
   def votes_id_tag(voteable_object)

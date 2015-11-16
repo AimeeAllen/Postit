@@ -4,6 +4,10 @@
     <%= f.text_field :username %>
   </div>
   <div>
+    <%= f.label :timezone %>
+    <%= f.time_zone_select :timezone, ActiveSupport::TimeZone.all, default: Time.zone.name %>
+  </div>
+  <div>
     <%= f.label :password %>
     <%= f.password_field :password%>
   </div>
