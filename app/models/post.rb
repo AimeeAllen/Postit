@@ -1,4 +1,6 @@
 class Post < ActiveRecord::Base
+  POSTS_PER_PAGE = 3
+
   include Voteable
   include Sluggable
   sluggable_column :title
@@ -9,5 +11,7 @@ class Post < ActiveRecord::Base
   has_many :categories, through: :post_categories
 
   validates :title, :url, :description, presence: true
+
+  default_scope { order ('created_at DESC')}
 
 end

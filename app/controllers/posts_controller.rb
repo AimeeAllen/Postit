@@ -7,7 +7,8 @@ class PostsController < ApplicationController
   VOTE_FAIL_MSG = 'You can not vote more than once for a Post'
 
   def index
-    @posts = Post.all
+    @posts = Post.limit(Post::POSTS_PER_PAGE).offset(params[:offset])
+    @pages = (Post.all.size.to_f / Post::POSTS_PER_PAGE).ceil
   end
 
   def show

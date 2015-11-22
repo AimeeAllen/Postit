@@ -4,3 +4,5 @@
 
 <%= render @posts %>
 
+<%= render 'shared/pageination_links', pages: @pages, items_per_page: Post::POSTS_PER_PAGE %>
+

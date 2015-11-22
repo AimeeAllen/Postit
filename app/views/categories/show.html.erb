@@ -3,4 +3,6 @@
 
 <%= render 'shared/header', header: heading %>
 
-<%= render @category.posts %>
+<%= render @posts %>
+
+<%= render 'shared/pageination_links', pages: @post_pages, items_per_page: Post::POSTS_PER_PAGE %>

@@ -9,6 +9,8 @@ class CategoriesController < ApplicationController
 
   def show
     @category = Category.find_by(slug: params[:id])
+    @posts = @category.posts.limit(Post::POSTS_PER_PAGE).offset(params[:offset])
+    @post_pages = (@category.posts.size.to_f / Post::POSTS_PER_PAGE).ceil
   end
 
   def new
